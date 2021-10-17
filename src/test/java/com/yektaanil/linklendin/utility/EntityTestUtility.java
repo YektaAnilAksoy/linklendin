@@ -18,8 +18,10 @@ public final class EntityTestUtility {
         user.setUsername("yaaksoy");
         user.setName("yekta anil");
         user.setSurname("aksoy");
+        user.setPassword("password");
         user.setCreateDate(now);
         user.setStatus(1);
+        user.setEmail("yektaanilaksoy@gmail.com");
         return user;
     }
 
@@ -30,6 +32,7 @@ public final class EntityTestUtility {
         userDTO.setId(getUser().getId());
         userDTO.setLinks(getUser().getLinks());
         userDTO.setUsername(getUser().getUsername());
+        userDTO.setEmail(getUser().getEmail());
         return userDTO;
     }
 }

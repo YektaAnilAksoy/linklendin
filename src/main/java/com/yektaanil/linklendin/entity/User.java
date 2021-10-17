@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,6 +47,10 @@ public class User extends BaseEntity {
 
     @Column(name = "password", nullable = false, length = 50)
     private String password;
+
+    @Email(regexp = ".+@.+\\..+")
+    @Column(name = "email", nullable = false, unique = true, length = 250)
+    private String email;
 
     public void addLink(Link link) {
         links.add(link);
