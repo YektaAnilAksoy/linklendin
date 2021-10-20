@@ -68,7 +68,6 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final User user = userRepository.findUserByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionConstants.USER_NOT_FOUND));
-
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(), user.getPassword(), new ArrayList<>());
     }

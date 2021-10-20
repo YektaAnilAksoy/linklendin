@@ -1,6 +1,7 @@
 package com.yektaanil.linklendin.service.link;
 
 import com.yektaanil.linklendin.dto.link.LinkDTO;
+import java.util.List;
 
 /**
  * @author : Yekta Anil AKSOY
@@ -9,4 +10,6 @@ import com.yektaanil.linklendin.dto.link.LinkDTO;
 public interface LinkService {
 
     LinkDTO save(LinkDTO linkDTO);
+
+    List<LinkDTO> retrieveAllUserLinks(Long userId);
 }

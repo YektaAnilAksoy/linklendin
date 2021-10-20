@@ -1,6 +1,8 @@
 package com.yektaanil.linklendin.utility;
 
+import com.yektaanil.linklendin.dto.link.LinkDTO;
 import com.yektaanil.linklendin.dto.user.UserDTO;
+import com.yektaanil.linklendin.entity.Link;
 import com.yektaanil.linklendin.entity.User;
 import java.time.LocalDateTime;
 
@@ -34,5 +36,23 @@ public final class EntityTestUtility {
         userDTO.setUsername(getUser().getUsername());
         userDTO.setEmail(getUser().getEmail());
         return userDTO;
+    }
+
+    public static Link getLink() {
+        Link link = new Link();
+        link.setId(1L);
+        link.setUser(getUser());
+        link.setTitle("Github");
+        link.setUrl("www.github.com/yektaanilaksoy");
+        return link;
+    }
+
+    public static LinkDTO getLinkDTO() {
+        LinkDTO linkDTO = new LinkDTO();
+        linkDTO.setId(getLink().getId());
+        linkDTO.setTitle(getLink().getTitle());
+        linkDTO.setUrl(getLink().getUrl());
+        linkDTO.setUserId(getLink().getUser().getId());
+        return linkDTO;
     }
 }

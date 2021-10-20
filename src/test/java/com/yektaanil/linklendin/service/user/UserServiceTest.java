@@ -29,6 +29,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
@@ -93,7 +94,7 @@ class UserServiceTest {
         final AuthResponseDTO authResponseDTO = userService.login(
                 new AuthRequestDTO(user.getUsername(), user.getPassword()));
 
-        assertNotNull(authResponseDTO.getToken(), authResponseDTO.getToken() + "is null");
+        assertNotNull(authResponseDTO.getToken(), "Token is null");
     }
 
     @Test
@@ -101,16 +102,38 @@ class UserServiceTest {
         final User user = EntityTestUtility.getUser();
         when(userRepository.findUserByUsername(anyString())).thenThrow(
                 EntityNotFoundException.class);
-        assertThrows(EntityNotFoundException.class, () -> userService.login(
-                new AuthRequestDTO(user.getUsername(), user.getPassword())));
+        AuthRequestDTO requestDTO = new AuthRequestDTO(user.getUsername(), user.getPassword());
+        assertThrows(EntityNotFoundException.class, () -> userService.login(requestDTO));
     }
 
     @Test
     void login_fail_when_credentials_incorrect() {
         final User user = EntityTestUtility.getUser();
         when(authenticationManager.authenticate(any())).thenThrow(BadCredentialsException.class);
+        AuthRequestDTO authRequestDTO = new AuthRequestDTO("userX", "passX");
+        assertThrows(BadCredentialsException.class, () -> userService.login(authRequestDTO));
+    }
 
-        assertThrows(BadCredentialsException.class, () -> userService.login(
-                new AuthRequestDTO("userX", "passX")));
+    @Test
+    void loadUserByUsername_success() {
+        final User user = EntityTestUtility.getUser();
+        when(userRepository.findUserByUsername(anyString())).thenReturn(Optional.of(user));
+
+        final UserDetails userDetails = userService.loadUserByUsername(user.getUsername());
+
+        assertNotNull(userDetails, "UserDetails is null");
+        assertEquals(user.getUsername(), userDetails.getUsername());
+
+    }
+
+    @Test
+    void loadUserByUsername_fail() {
+        final User user = EntityTestUtility.getUser();
+        when(userRepository.findUserByUsername(anyString())).thenThrow(
+                EntityNotFoundException.class);
+        final String username = user.getUsername();
+        assertThrows(EntityNotFoundException.class,
+                () -> userService.loadUserByUsername(username));
+
     }
 }
