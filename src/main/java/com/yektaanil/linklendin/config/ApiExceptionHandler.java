@@ -4,6 +4,7 @@ package com.yektaanil.linklendin.config;
 import com.yektaanil.linklendin.dto.exception.ExceptionDTO;
 import com.yektaanil.linklendin.exception.UserAlreadyTakenException;
 import java.util.Date;
+import javax.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,14 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(UserAlreadyTakenException.class)
     public final ResponseEntity<ExceptionDTO> handleUsernameAlreadyTakenException(
             UserAlreadyTakenException ex, WebRequest request) {
+        ExceptionDTO errorDetails =
+                new ExceptionDTO(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public final ResponseEntity<ExceptionDTO> handleEntityNotFoundException(
+            EntityNotFoundException ex, WebRequest request) {
         ExceptionDTO errorDetails =
                 new ExceptionDTO(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
