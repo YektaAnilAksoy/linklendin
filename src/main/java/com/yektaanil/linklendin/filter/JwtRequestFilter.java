@@ -15,8 +15,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-;
-
 /**
  * @author : Yekta Anil AKSOY
  * @since : 19.10.2021

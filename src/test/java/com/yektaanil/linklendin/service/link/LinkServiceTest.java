@@ -50,7 +50,7 @@ class LinkServiceTest {
                 linkDTO);
         when(linkRepository.save(any(Link.class))).thenReturn(link);
 
-        LinkDTO savedDTO = linkService.save(linkDTO);
+        LinkDTO savedDTO = linkService.addLink(linkDTO);
 
         assertEquals(linkDTO.getId(), savedDTO.getId());
         assertEquals(linkDTO.getUserId(), savedDTO.getUserId());
@@ -70,7 +70,7 @@ class LinkServiceTest {
                 linkDTO);
         when(linkRepository.findAllByUserId(anyLong())).thenReturn(linkList);
 
-        List<LinkDTO> serviceResp = linkService.retrieveAllUserLinks(1L);
+        List<LinkDTO> serviceResp = linkService.listUserLinks(1L);
 
         assertFalse(serviceResp.isEmpty());
     }

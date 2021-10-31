@@ -33,13 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable().authorizeRequests()
-                .antMatchers("/login", "/signup", "/h2-console/**")
+                .antMatchers("/api/v1/user/login", "/api/v1/user/signup", "/h2-console/**")
                 .permitAll().anyRequest().authenticated().and().sessionManagement()
                 .sessionCreationPolicy(
                         SessionCreationPolicy.STATELESS);
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-        ;
-
         // for allowing h2-console iframe
         httpSecurity.headers().frameOptions().disable();
     }

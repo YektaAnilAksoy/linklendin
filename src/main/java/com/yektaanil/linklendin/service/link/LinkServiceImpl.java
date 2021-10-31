@@ -26,13 +26,13 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public LinkDTO save(LinkDTO linkDTO) {
+    public LinkDTO addLink(LinkDTO linkDTO) {
         return modelMapper.map(linkRepository.save(modelMapper.map(linkDTO, Link.class)),
                 LinkDTO.class);
     }
 
     @Override
-    public List<LinkDTO> retrieveAllUserLinks(Long userId) {
+    public List<LinkDTO> listUserLinks(Long userId) {
         List<LinkDTO> result = new ArrayList<>();
         linkRepository.findAllByUserId(userId)
                 .forEach(x -> result.add(modelMapper.map(x, LinkDTO.class)));

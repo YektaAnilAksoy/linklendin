@@ -9,7 +9,7 @@ import java.util.List;
  **/
 public interface LinkService {
 
-    LinkDTO save(LinkDTO linkDTO);
+    LinkDTO addLink(LinkDTO linkDTO);
 
-    List<LinkDTO> retrieveAllUserLinks(Long userId);
+    List<LinkDTO> listUserLinks(Long userId);
 }

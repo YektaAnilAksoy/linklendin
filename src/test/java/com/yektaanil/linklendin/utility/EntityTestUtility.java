@@ -1,6 +1,8 @@
 package com.yektaanil.linklendin.utility;
 
 import com.yektaanil.linklendin.dto.link.LinkDTO;
+import com.yektaanil.linklendin.dto.user.AuthRequestDTO;
+import com.yektaanil.linklendin.dto.user.AuthResponseDTO;
 import com.yektaanil.linklendin.dto.user.UserDTO;
 import com.yektaanil.linklendin.entity.Link;
 import com.yektaanil.linklendin.entity.User;
@@ -33,7 +35,7 @@ public final class EntityTestUtility {
         userDTO.setName(getUser().getName());
         userDTO.setId(getUser().getId());
         userDTO.setLinks(getUser().getLinks());
-        userDTO.setUsername(getUser().getUsername());
+        userDTO.setSurname(getUser().getSurname());
         userDTO.setEmail(getUser().getEmail());
         return userDTO;
     }
@@ -54,5 +56,17 @@ public final class EntityTestUtility {
         linkDTO.setUrl(getLink().getUrl());
         linkDTO.setUserId(getLink().getUser().getId());
         return linkDTO;
+    }
+
+    public static AuthRequestDTO getAuthRequestDTO() {
+        AuthRequestDTO authRequestDTO = new AuthRequestDTO();
+        authRequestDTO.setUsername(getUser().getUsername());
+        authRequestDTO.setPassword(getUser().getPassword());
+        return authRequestDTO;
+    }
+
+    public static AuthResponseDTO getAuthResponseDTO() {
+        AuthResponseDTO authResponseDTO = new AuthResponseDTO("customToken");
+        return authResponseDTO;
     }
 }
