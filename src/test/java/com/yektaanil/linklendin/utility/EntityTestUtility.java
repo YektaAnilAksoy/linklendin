@@ -49,12 +49,30 @@ public final class EntityTestUtility {
         return link;
     }
 
+    public static Link getLink2() {
+        Link link = new Link();
+        link.setId(2L);
+        link.setUser(getUser());
+        link.setTitle("instagram");
+        link.setUrl("www.instagram.com/yektaanilaksoy");
+        return link;
+    }
+
     public static LinkDTO getLinkDTO() {
         LinkDTO linkDTO = new LinkDTO();
         linkDTO.setId(getLink().getId());
         linkDTO.setTitle(getLink().getTitle());
         linkDTO.setUrl(getLink().getUrl());
         linkDTO.setUserId(getLink().getUser().getId());
+        return linkDTO;
+    }
+
+    public static LinkDTO getLinkDTO2() {
+        LinkDTO linkDTO = new LinkDTO();
+        linkDTO.setId(getLink2().getId());
+        linkDTO.setTitle(getLink2().getTitle());
+        linkDTO.setUrl(getLink2().getUrl());
+        linkDTO.setUserId(getLink2().getUser().getId());
         return linkDTO;
     }
 
@@ -66,7 +84,6 @@ public final class EntityTestUtility {
     }
 
     public static AuthResponseDTO getAuthResponseDTO() {
-        AuthResponseDTO authResponseDTO = new AuthResponseDTO("customToken");
-        return authResponseDTO;
+        return new AuthResponseDTO("customToken");
     }
 }
